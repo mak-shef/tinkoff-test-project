@@ -61,7 +61,7 @@ public class PaymentTest {
     @Test
     public void paymentsTest() throws Exception{
         //валидация полей
-        logger.info("Валидация полей: сообщение о незаполнненном поле");
+        logger.info("Валидация полей: сообщение о незаполненном поле");
         String expected = "Поле обязательное";
         ZHKUPaymentPage zhkuPaymentPage = zhkuPaymentHelper.getZhkuPaymentPage();
         zhkuPaymentPage.submitButton.click();
@@ -76,17 +76,17 @@ public class PaymentTest {
         Assert.assertEquals(zhkuPaymentPage.getErrorText(date),
                 expected, "Неверный текст ошибки поля 'Период оплаты'");
 
-        logger.info("Поле 'Сумма дбровольного страхования жилья'");
+        logger.info("Поле 'Сумма добровольного страхования жилья'");
         WebElement accountAmount = zhkuPaymentPage.getAccountAmount();
         Assert.assertEquals(zhkuPaymentPage.getErrorText(accountAmount),
-                expected, "Неверный текст ошибки 'Сумма дбровольного страхования жилья'");
+                expected, "Неверный текст ошибки 'Сумма добровольного страхования жилья'");
 
         logger.info("Поле 'Сумма платежа'");
         WebElement ammount = zhkuPaymentPage.getAmount();
         Assert.assertEquals(zhkuPaymentPage.getErrorText(ammount),
                 "", "Неверный текст ошибки 'Сумма платежа'");
 
-        logger.info("Валидация поля код плательщика: невреное значение поля");
+        logger.info("Валидация поля код плательщика: неверное значение поля");
         zhkuPaymentHelper.getZhkuPaymentPage();
         zhkuPaymentPage.getPayerCode();
         code.sendKeys("не цифры*%");
@@ -110,7 +110,7 @@ public class PaymentTest {
         paymentsHelper.contextSearch(communalName);
         PaymentsPage paymentsPage = paymentsHelper.getPaymentsPage();
         Assert.assertTrue(paymentsPage.searchResultList.size() > 0,
-                "Не найдено не одной записи с наименованием  " + communalName);
+                "Не найдено ни одной записи с наименованием  " + communalName);
         Assert.assertEquals(paymentsPage.searchResultList.get(0).getText(),
                 communalName + "\nКоммунальные платежи", "Первая" +
                         "запись не верна");
