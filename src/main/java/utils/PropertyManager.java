@@ -36,14 +36,14 @@ public class PropertyManager {
     private Properties loadPropertyFile() {
         Properties props = new Properties();
         File file = new File(PROP_FILE);
-            if (file.exists()) {
-                try {
-                    InputStream stream = new FileInputStream(PROP_FILE);
-                    props.load(stream);
-                } catch (IOException e) {
-                    throw new PropertyLoadException(e.getLocalizedMessage());
-                }
+        if (file.exists()) {
+            try {
+                InputStream stream = new FileInputStream(PROP_FILE);
+                props.load(stream);
+            } catch (IOException e) {
+                throw new PropertyLoadException(e.getLocalizedMessage());
             }
+        }
         return props;
     }
 
@@ -56,7 +56,7 @@ public class PropertyManager {
         }
         if (name != null) {
             String val = props.getProperty(name);
-            return val!=null?val:"";
+            return val != null ? val : "";
         }
         return "";
         //TODO добавить ошибку что свойства нет

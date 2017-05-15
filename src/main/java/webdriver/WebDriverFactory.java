@@ -25,6 +25,7 @@ public class WebDriverFactory {
 
     /**
      * Выбор конкретного браузера
+     *
      * @return WebDriver
      */
     public enum WebDriverProvider {
@@ -78,8 +79,8 @@ public class WebDriverFactory {
             /**
              * Создает инстанс chromeDriver
              *
-             * @param driverPath обязателно для chromeDriver
-             * @param gridHubUrl опциоанльный параметр
+             * @param driverPath обязательно для chromeDriver
+             * @param gridHubUrl опциональный параметр
              * @return WebDriver
              * @throws MalformedURLException
              */
@@ -92,19 +93,19 @@ public class WebDriverFactory {
                 capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
                 // In case there is Hub use
                 if ((null != gridHubUrl) && !gridHubUrl.isEmpty()) {
-                        return createRemoteWebDriver(gridHubUrl, capabilities);
-                    }
-                    return new ChromeDriver(capabilities);
+                    return createRemoteWebDriver(gridHubUrl, capabilities);
                 }
+                return new ChromeDriver(capabilities);
+            }
 
-                /**
-                 * Создает инстанс ieDriver
-                 *
-                 * @param driverPath обязательно для IEServerDriver
-                 * @param gridHubUrl опциональный
-                 * @return WebDriver
-                 * @throws MalformedURLException
-                 */
+            /**
+             * Создает инстанс ieDriver
+             *
+             * @param driverPath обязательно для IEServerDriver
+             * @param gridHubUrl опциональный
+             * @return WebDriver
+             * @throws MalformedURLException
+             */
 
             private static WebDriver createIEDriver(String driverPath, String gridHubUrl) throws MalformedURLException {
                 String file = ensureDriverPath(driverPath);
@@ -114,17 +115,18 @@ public class WebDriverFactory {
                 capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
                 capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
                 if ((null != gridHubUrl) && !gridHubUrl.isEmpty()) {
-                        return createRemoteWebDriver(gridHubUrl, capabilities);
-                    }
-                    return new InternetExplorerDriver(capabilities);
+                    return createRemoteWebDriver(gridHubUrl, capabilities);
                 }
+                return new InternetExplorerDriver(capabilities);
+            }
 
-                /**
-                 * Создаетte инстанс ForeFox                 *
-                 * @param gridHubUrl опциональный
-                 * @return WebDriver
-                 * @throws MalformedURLException
-                 */
+            /**
+             * Создает инстанс ForeFox
+             *
+             * @param gridHubUrl опциональный
+             * @return WebDriver
+             * @throws MalformedURLException
+             */
 
             private static WebDriver createFireFoxDriver(String gridHubUrl) throws MalformedURLException {
                 DesiredCapabilities capabilities = DesiredCapabilities.firefox();
@@ -133,19 +135,19 @@ public class WebDriverFactory {
                 capabilities.setCapability(FirefoxDriver.PROFILE, ffProfile);
                 capabilities.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
                 if ((null != gridHubUrl) && !gridHubUrl.isEmpty()) {
-                        return createRemoteWebDriver(gridHubUrl, capabilities);
-                    }
-                    return new FirefoxDriver(ffProfile);
+                    return createRemoteWebDriver(gridHubUrl, capabilities);
                 }
+                return new FirefoxDriver(ffProfile);
+            }
 
-                /**
-                 * Создает инстанс Remote WebDriver
-                 *
-                 * @param gridHubUrl   обязательный grid Hub url
-                 * @param capabilities обязательный browser capabilities
-                 * @return
-                 * @throws MalformedURLException
-                 */
+            /**
+             * Создает инстанс Remote WebDriver
+             *
+             * @param gridHubUrl   обязательный grid Hub url
+             * @param capabilities обязательный browser capabilities
+             * @return
+             * @throws MalformedURLException
+             */
 
             private static WebDriver createRemoteWebDriver(String gridHubUrl, DesiredCapabilities capabilities) throws MalformedURLException {
                 WebDriver webDriver = new RemoteWebDriver(new URL(gridHubUrl), capabilities);

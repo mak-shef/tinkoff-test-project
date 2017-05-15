@@ -1,5 +1,6 @@
 package pages;
 
+import exceptions.AutoTestException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,15 +34,18 @@ public class RegionSearchPage extends ModalPage {
     public List<WebElement> regionsList;
 
 
-    public void findAndClickRegion(String regionName){
+    public void findAndClickRegion(String regionName) {
         regionInput.sendKeys(regionName);
-        Assert.assertEquals(regionsList.size(), 1, "Found more then one item");
-        Assert.assertEquals(regionsList.get(0).getText(), regionName, "Found name isn't correct");
-        regionsList.get(0).findElement(By.xpath("./span")).click();
+        if (regionsList.size() > 0) {
+            String findName = regionsList.get(0).getText();
+            if (regionName.equals(findName)) {
+                regionsList.get(0).findElement(By.xpath("./span")).click();
+            } else throw new AutoTestException("Неверное имя записи " + findName);
+        } else throw new AutoTestException("Не найдено не одной записи с именем " + regionName);
     }
 
     @Override
-    public RegionSearchPage ensurePageLoaded(){
+    public RegionSearchPage ensurePageLoaded() {
         waitElementLoad.until(ExpectedConditions.presenceOfElementLocated(By.className("ui-regions")));
         return this;
     }

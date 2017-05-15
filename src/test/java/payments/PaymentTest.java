@@ -8,6 +8,9 @@ import pages.PaymentsPage;
 import pages.ZHKUPaymentPage;
 import org.apache.log4j.*;
 import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
+
+import java.util.List;
 
 /**
  * Created by Marina on 13.05.2017.
@@ -58,8 +61,9 @@ public class PaymentTest {
         zhkuPaymentHelper.switchToPaymentPage();
     }
 
+    @Stories("Тестовый сценарий")
     @Test
-    public void paymentsTest() throws Exception{
+    public void paymentsTest() throws Exception {
         //валидация полей
         logger.info("Валидация полей: сообщение о незаполненном поле");
         String expected = "Поле обязательное";
@@ -98,6 +102,7 @@ public class PaymentTest {
         logger.info("Валидация поля код плательщика: больше 10 символов");
         zhkuPaymentHelper.getZhkuPaymentPage();
         zhkuPaymentPage.getPayerCode();
+        code.clear();
         code.sendKeys("12345678900");
         zhkuPaymentPage.zhkuPayLink.click();
         Assert.assertEquals(zhkuPaymentPage.getErrorText(code),
@@ -108,14 +113,15 @@ public class PaymentTest {
         paymentsHelper.gotoPaymentPageByLinkClick();
         //ввод поставщика услуг в строке быстрого поиска
         paymentsHelper.contextSearch(communalName);
-        PaymentsPage paymentsPage = paymentsHelper.getPaymentsPage();
-        Assert.assertTrue(paymentsPage.searchResultList.size() > 0,
+        PaymentsPage paymentsPage = paymentsHelper.getPaymentsPage().ensurePageLoaded();
+        List<WebElement> searchListResults = paymentsPage.getSearchResultList();
+        Assert.assertTrue(searchListResults.size() > 0,
                 "Не найдено ни одной записи с наименованием  " + communalName);
-        Assert.assertEquals(paymentsPage.searchResultList.get(0).getText(),
+        Assert.assertEquals(searchListResults.get(0).getText(),
                 communalName + "\nКоммунальные платежи", "Первая" +
                         "запись не верна");
-        logger.info("Выбор первой записи с наименованием: "+communalName);
-        paymentsPage.searchResultList.get(0).click();
+        logger.info("Выбор первой записи с наименованием: " + communalName);
+        paymentsHelper.choosePaymentsByIndex(1);
         zhkuPaymentHelper.getZhkuMainPage().waitPageLoaded();
 
         //проверка зaгрузки страницы

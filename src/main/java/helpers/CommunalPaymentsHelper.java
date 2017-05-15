@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.CommunalPaymentsPage;
 import pages.RegionSearchPage;
+import ru.yandex.qatools.allure.annotations.Step;
 
 /**
  * Хелпер страницы "Коммунальные платежи"
@@ -25,29 +26,32 @@ public class CommunalPaymentsHelper extends MainPageHelper {
     }
 
     /**
-     * Выполяет клик по поставщику усуг по индексу
+     * Выполняет клик по поставщику услуг по индексу
+     *
      * @param idx - порядковый номер поставщика услуг. Нумерация начинается с 1.
      * @return наименование выбранного поставщика в формате String
      * @throws AutoTestException
      */
-    public String clickCommunalItemsByIndex(int idx)throws AutoTestException{
-        logger.info("Клик по записи с индесом: "+idx);
+    @Step("Выбор поставщика услуг с индексом {0}")
+    public String clickCommunalItemsByIndex(int idx) throws AutoTestException {
+        logger.info("Клик по записи с индексом: " + idx);
         WebElement item = getCommunalPaymentsPage().getCommunalItemsByIndex(idx);
-        if(item == null) throw new AutoTestException(String.format("Элемент с индексом %s не найден!", idx));
-        String itemName= item.getText();
+        if (item == null) throw new AutoTestException(String.format("Элемент с индексом %s не найден!", idx));
+        String itemName = item.getText();
         item.click();
         return itemName;
     }
 
     /**
      * Вовзращает наличие элемента поимени
+     *
      * @param name - наименование поставщика услуг
      * @return true -элемент найден,false - нет
      * @throws AutoTestException
      */
-    public boolean isElementExistsByName(String name)throws AutoTestException{
+    public boolean isElementExistsByName(String name) throws AutoTestException {
         WebElement item = getCommunalPaymentsPage().getCommunalItemsByName(name);
-        if(item == null) return false;
+        if (item == null) return false;
         return true;
     }
 
@@ -67,7 +71,7 @@ public class CommunalPaymentsHelper extends MainPageHelper {
      * @param finalRegionName
      */
     public void setRegionName(String setRegionName, String finalRegionName) {
-        logger.info("Установка региона: "+setRegionName);
+        logger.info("Установка региона: " + setRegionName);
         if (!getRegionName().equals(finalRegionName)) {
             getCommunalPaymentsPage().regionInput.click();
             getRegionSearchPage().findAndClickRegion(setRegionName);
@@ -79,6 +83,7 @@ public class CommunalPaymentsHelper extends MainPageHelper {
 
     /**
      * Возвращает модальное окно поииска региона
+     *
      * @return RegionSearchPage
      */
     public RegionSearchPage getRegionSearchPage() {

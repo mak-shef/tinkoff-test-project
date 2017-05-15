@@ -6,7 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * Created by Marina on 13.05.2017.
+ * Общие методы работы со страницей
  */
 public class Page {
 
@@ -29,7 +29,8 @@ public class Page {
             return false;
         }
     }
-    public Page ensurePageLoaded(){
+
+    public Page ensurePageLoaded() {
         return this;
     }
 }

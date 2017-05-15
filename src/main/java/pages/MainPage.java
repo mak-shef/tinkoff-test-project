@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * Главная странца
+ * Главная страница
  */
 public class MainPage extends Page {
 
@@ -20,7 +20,7 @@ public class MainPage extends Page {
     }
 
     @Override
-    public MainPage ensurePageLoaded(){
+    public MainPage ensurePageLoaded() {
         waitPageLoad.until(ExpectedConditions.presenceOfElementLocated(By.xpath(LOGO)));
         return this;
     }

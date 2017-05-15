@@ -30,13 +30,14 @@ public class CommunalPaymentsPage extends MainPage {
 
     /**
      * Возвращает элемент по индексу
+     *
      * @param idx - порядковый номер поставщика услуг. Нумерация начинается с 1.
      * @return наименование выбранного поставщика в формате String
      * @throws AutoTestException
      */
-    public WebElement getCommunalItemsByIndex(int idx)throws AutoTestException{
+    public WebElement getCommunalItemsByIndex(int idx) throws AutoTestException {
         waitPageLoad.until(ExpectedConditions.visibilityOfAllElements(communalItems));
-        if((communalItems.size() < idx)){
+        if ((communalItems.size() < idx)) {
             return null;
         }
         return communalItems.get(idx - 1);
@@ -44,12 +45,13 @@ public class CommunalPaymentsPage extends MainPage {
 
     /**
      * Находит поставщика услуг по наименованию
+     *
      * @param name - наименования поставщика услуг
      * @return WebElement
      */
-    public WebElement getCommunalItemsByName(String name){
+    public WebElement getCommunalItemsByName(String name) {
         waitPageLoad.until(ExpectedConditions.visibilityOfAllElements(communalItems));
-        if(communalItems.size() >= 0) {
+        if (communalItems.size() >= 0) {
             for (WebElement communalItem : communalItems) {
                 if (communalItem.getText().equals(name)) {
                     return communalItem;

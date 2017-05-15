@@ -29,11 +29,16 @@ public class PaymentsPage extends MainPage {
     @FindBy(xpath = ".//input[@class='ui-search-input__input']")
     public WebElement searchInput;
 
-    @FindAll(@FindBy(xpath = ".//div[@class= 'ui-search-flat']/span"))
-    public List<WebElement> searchResultList;
+    public List<WebElement> getSearchResultList() {
+        List<WebElement> searchResultList = webDriver.findElements(
+                By.xpath(".//div[@class= 'ui-search-flat']/span"));
+        return searchResultList;
+
+    }
 
     /**
      * Возвращает элемент по наименованию категории платежа
+     *
      * @param paymentName
      * @return WebElement
      * @throws AutoTestException
@@ -41,14 +46,14 @@ public class PaymentsPage extends MainPage {
     public WebElement getPaymentByName(String paymentName) throws AutoTestException {
         List<WebElement> paymentsList = webDriver.findElements(By.linkText(paymentName));
         int size = paymentsList.size();
-        if(size == 1){
+        if (size == 1) {
             return paymentsList.get(0);
         }
-        if(size == 0){
-            throw new AutoTestException(String.format("Не найдено не одного элемента с наименованием %s",paymentName));
+        if (size == 0) {
+            throw new AutoTestException(String.format("Не найдено не одного элемента с наименованием %s", paymentName));
         }
         throw new AutoTestException(String.format("Найдено %s элементов с наименованием %s",
-                String.valueOf(size),paymentName));
+                String.valueOf(size), paymentName));
     }
 
     @Override

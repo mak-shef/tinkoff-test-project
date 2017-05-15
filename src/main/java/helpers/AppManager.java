@@ -2,6 +2,7 @@ package helpers;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import ru.yandex.qatools.allure.annotations.Step;
 import utils.PropertyManager;
 import webdriver.WebDriverFactory;
 
@@ -29,16 +30,17 @@ public class AppManager {
     /**
      * Переход на базовый URL, указанный в проперти файле
      */
-    public void goToBaseUrl(){
-        logger.info("Переход на страницу: "+BASE_URL);
+    @Step("Переход на базовый URL")
+    public void goToBaseUrl() {
+        logger.info("Переход на страницу: " + BASE_URL);
         webDriver.navigate().to(BASE_URL);
     }
 
-    public WebDriver getWebDriver(){
+    public WebDriver getWebDriver() {
         return webDriver;
     }
 
-    public void closeDriver(){
+    public void closeDriver() {
         webDriver.close();
     }
 }

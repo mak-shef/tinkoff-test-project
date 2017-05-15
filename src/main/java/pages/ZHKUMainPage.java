@@ -24,7 +24,7 @@ public class ZHKUMainPage extends MainPage {
     public WebElement zhkuPayLink;
 
     @Override
-    public ZHKUMainPage ensurePageLoaded(){
+    public ZHKUMainPage ensurePageLoaded() {
         waitPageLoad.until(ExpectedConditions.visibilityOf(zhkuPayLink));
         return this;
     }

@@ -5,9 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Created by Marina on 13.05.2017.
+ * Модальное окно
  */
-public class ModalPage extends Page{
+public class ModalPage extends Page {
 
     public ModalPage(WebDriver webDriver) {
         super(webDriver);
